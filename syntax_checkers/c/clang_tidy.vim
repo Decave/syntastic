@@ -23,6 +23,11 @@ set cpo&vim
 
 function! SyntaxCheckers_c_clang_tidy_GetLocList() dict
     let buf = bufnr('')
+    if exists('g:syntastic_c_clang_tidy_post_args_after')
+        let b:post_args_after = join(g:syntastic_c_clang_tidy_post_args_after, ' ')
+    else
+        let b:post_args_after = ''
+    endif
 
     let makeprg = self.makeprgBuild({
         \ 'post_args':
@@ -33,7 +38,9 @@ function! SyntaxCheckers_c_clang_tidy_GetLocList() dict
         \   '-fshow-source-location ' .
         \   '-fno-caret-diagnostics ' .
         \   '-fno-color-diagnostics ' .
-        \   '-fdiagnostics-format=clang' })
+        \   '-fdiagnostics-format=clang',
+        \ 'post_args_after' :
+        \   b:post_args_after })
 
     let errorformat =
         \ '%E%f:%l:%c: fatal error: %m,' .
