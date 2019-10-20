@@ -219,7 +219,7 @@ function! s:_get_cflags(ft, ck, opts) abort " {{{2
         let flags = get(a:opts, 'main_flags', '')
     endif
 
-    let flags .= ' ' . s:_get_checker_var('g', a:ft, a:ck, 'compiler_options', '') . ' ' . s:_get_include_dirs(a:ft)
+    let flags .= ' ' . s:_get_checker_var('g', a:ft, a:ck, 'compiler_options', '') . ' ' . syntastic#c#IncludeDirs(a:ft)
 
     " check if the user manually set some cflags
     let b_cflags = s:_get_checker_var('b', a:ft, a:ck, 'cflags', '')
@@ -247,9 +247,9 @@ function! s:_get_cflags(ft, ck, opts) abort " {{{2
     return flags
 endfunction " }}}2
 
-" get the gcc include directory argument depending on the default
+" get the include directory argument depending on the default
 " includes and the optional user-defined 'g:syntastic_c_include_dirs'
-function! s:_get_include_dirs(filetype) abort " {{{2
+function! syntastic#c#IncludeDirs(filetype) abort " {{{2
     let include_dirs = []
 
     if a:filetype =~# '\v^%(c|cpp|objc|objcpp)$' &&

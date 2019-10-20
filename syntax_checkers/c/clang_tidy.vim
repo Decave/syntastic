@@ -28,6 +28,7 @@ function! SyntaxCheckers_c_clang_tidy_GetLocList() dict
         \ 'post_args':
         \   '-- ' .
         \   syntastic#c#ReadConfig(syntastic#util#bufVar(buf, 'clang_tidy_config_file')) . ' ' .
+        \   syntastic#c#IncludeDirs('c') . ' ' .
         \   '-fshow-column ' .
         \   '-fshow-source-location ' .
         \   '-fno-caret-diagnostics ' .
